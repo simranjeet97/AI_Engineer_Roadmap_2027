@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# macOS artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Benchmark output runs & raw caches
+benchmarks/results/*.json
+!benchmarks/results/.gitkeep
