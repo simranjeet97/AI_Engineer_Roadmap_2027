@@ -121,6 +121,9 @@ Week 10: Model Routing, Token Budgeting & Public Benchmark Publishing
 
 ### Week 1: First Principles & Hardware Bound Physics (Roofline Model & Decode Bottlenecks)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_01_roofline_and_hardware_bounds.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_01_roofline_and_hardware_bounds.ipynb`](notebooks/week_01_roofline_and_hardware_bounds.ipynb)
+
 > **Objective**: Understand why hardware limits dictate LLM serving efficiency. Calculate exact theoretical memory bandwidth ceilings, derive the roofline model for modern GPUs (NVIDIA H100 / A100 / L40S), and understand the exact mathematical reasons why autoregressive decode is bandwidth-starved.
 
 ```
