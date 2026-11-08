@@ -223,6 +223,9 @@ Peak Compute --+------------------------------------------/
 
 ### Week 3: Production Observability & Inference Golden Signals
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_03_production_observability_and_golden_signals.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_03_production_observability_and_golden_signals.ipynb`](notebooks/week_03_production_observability_and_golden_signals.ipynb)
+
 > **Objective**: Implement comprehensive inference telemetry before attempting any optimization. Build a production Prometheus and Grafana stack tracking the Four Golden Inference Signals: Time to First Token (TTFT), Inter-Token Latency (ITL / TPOT), Normalized Throughput, and Queue Depth.
 
 ```
