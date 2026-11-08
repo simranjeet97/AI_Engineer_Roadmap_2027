@@ -516,6 +516,9 @@ Step 3: Modified Rejection Sampling accepts tokens up to first mismatch:
 
 ### Week 8: Disaggregated Prefill & Decode Serving (Mooncake, Splitwise, DistServe)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_08_disaggregated_prefill_and_decode.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_08_disaggregated_prefill_and_decode.ipynb`](notebooks/week_08_disaggregated_prefill_and_decode.ipynb)
+
 > **Objective**: Move beyond monolithic serving architectures. Explore disaggregated serving where prefill nodes (compute-heavy) and decode nodes (bandwidth-heavy) are physically separated and interconnected via high-speed RDMA / InfiniBand networks, transferring KV-cache states in real-time.
 
 ```
