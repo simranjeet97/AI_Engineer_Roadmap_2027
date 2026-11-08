@@ -179,6 +179,9 @@ Peak Compute --+------------------------------------------/
 
 ### Week 2: Deep Dive into PagedAttention & Modern Schedulers (vLLM & SGLang Codebases)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_02_paged_attention_and_schedulers.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_02_paged_attention_and_schedulers.ipynb`](notebooks/week_02_paged_attention_and_schedulers.ipynb)
+
 > **Objective**: Move beyond high-level architectural blog posts. Read the actual CUDA and Triton kernels of PagedAttention and trace the core scheduling loops in both `vLLM` and `SGLang` source code to understand how memory fragmentation is eradicated and requests are scheduled.
 
 #### Daily Schedule (30 Mins / Day)
