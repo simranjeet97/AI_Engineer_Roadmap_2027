@@ -89,12 +89,12 @@ Users perceive TTFT as "thinking time." When you type a question to ChatGPT and 
 
 TTFT breaks down into two additive components:
 
-$$TTFT \approx queue\_delay + \frac{prompt\_tokens}{prefill\_throughput}$$
+$$TTFT \approx \text{queue delay} + \frac{\text{prompt tokens}}{\text{prefill throughput}}$$
 
 Where:
-- $queue\_delay$ = time spent waiting for a slot in the running batch
-- $prompt\_tokens$ = number of tokens in the input prompt
-- $prefill\_throughput$ = how fast the GPU processes prompt tokens (tok/s)
+- $\text{queue delay}$ = time spent waiting for a slot in the running batch
+- $\text{prompt tokens}$ = number of tokens in the input prompt
+- $\text{prefill throughput}$ = how fast the GPU processes prompt tokens (tok/s)
 
 The prefill phase is **compute-bound** — the GPU processes all prompt tokens in parallel through the transformer layers, computing attention across the full sequence. This is the heavy matrix-multiplication work.
 
@@ -110,7 +110,7 @@ Let's calculate TTFT for a typical request:
 | Prefill throughput (H100, 8B model) | ~40,000 tok/s |
 | Queue delay (empty queue) | ~0 ms |
 
-$$prefill\_time = \frac{2048}{40000} = 0.0512 \text{ seconds} = 51.2 \text{ ms}$$
+$$\text{prefill time} = \frac{2048}{40000} = 0.0512 \text{ seconds} = 51.2 \text{ ms}$$
 
 $$TTFT = 0 + 51.2 = 51.2 \text{ ms}$$
 
@@ -205,7 +205,7 @@ If TTFT is how long you wait for the appetizer, ITL is how quickly the waiter br
 
 ITL directly determines the **perceived typing speed** of your LLM:
 
-$$tokens\_per\_second_{per\ stream} = \frac{1000}{ITL_{ms}}$$
+$$\text{tokens per second}_{per\ stream} = \frac{1000}{ITL_{ms}}$$
 
 | ITL | Tokens/sec | User Experience |
 |---|---|---|
@@ -223,7 +223,7 @@ Here's a fundamental insight about decode performance: **each decode step must r
 
 This gives us a hard physical floor on ITL:
 
-$$ITL_{min} = \frac{model\_weight\_bytes}{memory\_bandwidth}$$
+$$ITL_{min} = \frac{\text{model weight bytes}}{\text{memory bandwidth}}$$
 
 This is the absolute minimum — you literally cannot read the weights faster than the memory bus allows.
 
@@ -238,7 +238,7 @@ This is the absolute minimum — you literally cannot read the weights faster th
 
 $$ITL_{min} = \frac{140 \text{ GB}}{3350 \text{ GB/s}} = 0.0418 \text{ s} = 41.8 \text{ ms}$$
 
-$$max\_tokens\_per\_second = \frac{1}{0.0418} \approx 23.9 \text{ tok/s per stream}$$
+$$\text{max tokens per second} = \frac{1}{0.0418} \approx 23.9 \text{ tok/s per stream}$$
 
 That's the theoretical maximum for a single stream — and it assumes:
 - Perfect memory access patterns (no bank conflicts)
@@ -335,7 +335,7 @@ Think of it like a highway. System throughput is the total number of cars passin
 
 This is one of the most beautiful properties of LLM decode. Remember, each decode step is memory-bandwidth-bound — you must read the model weights once regardless of batch size. So processing 1 token or 64 tokens costs nearly the same memory-read time:
 
-$$system\_decode\_throughput \approx \frac{batch\_size}{ITL_{single}}$$
+$$\text{system decode throughput} \approx \frac{\text{batch size}}{ITL_{single}}$$
 
 As long as you're memory-bandwidth bound (not compute bound), **adding more sequences to the batch is nearly free**.
 
@@ -470,7 +470,7 @@ $$L = \lambda \times W$$
 
 Here's the math for why this is catastrophic. If $\lambda = 60$ req/s but $\mu = 50$ req/s:
 
-$$queue\_growth\_rate = \lambda - \mu = 60 - 50 = 10 \text{ req/s}$$
+$$\text{queue growth rate} = \lambda - \mu = 60 - 50 = 10 \text{ req/s}$$
 
 After 1 minute: queue = 600 requests. After 5 minutes: queue = 3,000 requests. Each request's wait time grows linearly, and your P99 latency rockets into the stratosphere.
 
@@ -709,13 +709,13 @@ Max:   8,500 ms ← Single worst request
 
 An error budget makes SLOs actionable. If your P99 TTFT SLO is 500ms, that means **1% of requests are allowed to exceed 500ms**. That 1% is your error budget.
 
-$$error\_budget = 1 - SLO\_target\_percentile$$
+$$\text{error budget} = 1 - \text{SLO target percentile}$$
 
 For a P99 SLO: error budget = 1%
 
 Over a 30-day window with 10 million requests:
 
-$$allowed\_violations = 10{,}000{,}000 \times 0.01 = 100{,}000 \text{ requests}$$
+$$\text{allowed violations} = 10{,}000{,}000 \times 0.01 = 100{,}000 \text{ requests}$$
 
 You can track remaining budget in real time:
 
@@ -753,7 +753,7 @@ Day 20-30:  ░░░░░░░░░░░░░░░░░░░░  Must s
 
 3. **TTFT = queue_delay + prefill_time.** For short prompts, the queue dominates. For long prompts (RAG, document processing), prefill dominates. Know which regime you're optimizing for.
 
-4. **ITL has a physics floor.** You cannot decode faster than $\frac{model\_bytes}{memory\_bandwidth}$. For Llama-3-70B BF16 on H100, that's 41.8ms minimum — about 24 tok/s per stream. Quantization is the lever to break through this floor.
+4. **ITL has a physics floor.** You cannot decode faster than $\frac{\text{model bytes}}{\text{memory bandwidth}}$. For Llama-3-70B BF16 on H100, that's 41.8ms minimum — about 24 tok/s per stream. Quantization is the lever to break through this floor.
 
 5. **Saturation is the leading indicator.** Queue depth and KV cache usage predict problems *before* latency degrades. Alert on saturation early — once TTFT has spiked, users are already suffering.
 

@@ -16,7 +16,7 @@ This report provides the empirical evaluation of Apex-Infer across concurrency l
 ### Key Results at a Glance:
 * **Throughput Ceiling**: Reaches **2,950 tokens/second** on an 8-GPU H100 cluster before HBM bandwidth saturation.
 * **TTFT Speedup via APC**: Prefix-cached multi-turn and agentic requests experience a **9.5x drop in TTFT** (from $180\text{ ms} \to 19\text{ ms}$).
-* **Tail Latency Defense**: Chunked prefill ($chunk\_size = 512$) eliminates decode stalls, maintaining P99 ITL below **$42\text{ ms}$** up to 500 concurrent connections.
+* **Tail Latency Defense**: Chunked prefill ($\text{chunk size} = 512$) eliminates decode stalls, maintaining P99 ITL below **$42\text{ ms}$** up to 500 concurrent connections.
 * **The Queue Cliff Point**: Identified at **$N \approx 550$ concurrent streams**, beyond which P99 TTFT diverges from $280\text{ ms} \to 3,400\text{ ms}$ due to Little's Law queue accumulation.
 
 ---

@@ -96,7 +96,7 @@ Let us derive the exact physical network transfer latency from first principles.
 
 ### The KV Cache Size Equation
 Recall the KV cache footprint for a prompt of length $S$:
-$$\text{KV Size (Bytes)} = 2 \times n_{\text{layers}} \times n_{\text{kv\_heads}} \times d_{\text{head}} \times \text{bytes\_per\_elem} \times S$$
+$$\text{KV Size (Bytes)} = 2 \times n_{\text{layers}} \times n_{\text{kv heads}} \times d_{\text{head}} \times \text{bytes per elem} \times S$$
 
 For **Llama-3-70B** ($80$ layers, $8$ KV heads, head dim $128$, in FP8 $\implies 1$ byte/elem):
 $$\text{KV Bytes per Token} = 2 \times 80 \times 8 \times 128 \times 1 = \mathbf{163,840 \text{ Bytes}} \approx \mathbf{160 \text{ KB / token}}$$

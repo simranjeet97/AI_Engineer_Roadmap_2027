@@ -160,7 +160,7 @@ Peak Compute --+------------------------------------------/
 
 * **Day 3: The KV Cache Memory Formula**
   * **Theory (15m)**: Derive the exact memory formula for the Key-Value (KV) cache:
-    $$\text{Size}_{\text{KV}} = 2 \times n_{\text{layers}} \times n_{\text{kv\_heads}} \times d_{\text{head}} \times \text{seq\_len} \times \text{bytes\_per\_element} \times \text{batch\_size}$$
+    $$\text{Size}_{\text{KV}} = 2 \times n_{\text{layers}} \times n_{\text{kv heads}} \times d_{\text{head}} \times \text{seq len} \times \text{bytes per element} \times \text{batch size}$$
     Understand how Multi-Query Attention (MQA) and Grouped-Query Attention (GQA) reduce KV cache footprint compared to Multi-Head Attention (MHA).
   * **Build (15m)**: Implement `kv_cache_estimator.py` that outputs the memory requirement in GB for Llama-3-8B (MHA vs GQA) and Llama-3-70B across context lengths ($2\text{k}, 8\text{k}, 32\text{k}, 128\text{k}$) and batch sizes ($1, 16, 64, 256$).
   * **Deliverable**: A lookup matrix displaying when KV cache size surpasses model weight size in HBM.
@@ -248,8 +248,8 @@ Peak Compute --+------------------------------------------/
 
 * **Day 11: The Four Inference Golden Signals Formally Defined**
   * **Theory (15m)**: Dissect the metrics that define LLM user experience and cluster health:
-    - **TTFT (Time To First Token)**: $t_{\text{first\_token}} - t_{\text{request\_received}}$. Sensitive to prompt length, prefill compute contention, and queue delays.
-    - **ITL (Inter-Token Latency)** / **TPOT (Time Per Output Token)**: $\frac{t_{\text{end}} - t_{\text{first\_token}}}{N_{\text{output\_tokens}} - 1}$. Driven by memory bandwidth saturation and active batch size.
+    - **TTFT (Time To First Token)**: $t_{\text{first token}} - t_{\text{request received}}$. Sensitive to prompt length, prefill compute contention, and queue delays.
+    - **ITL (Inter-Token Latency)** / **TPOT (Time Per Output Token)**: $\frac{t_{\text{end}} - t_{\text{first token}}}{N_{\text{output tokens}} - 1}$. Driven by memory bandwidth saturation and active batch size.
     - **Throughput**: Tokens per second (Total tokens / elapsed time). Distinguish between *prefill throughput* vs *decode throughput*.
     - **Queue Depth & Cache Utilization**: Number of waiting requests and active GPU block usage ratio.
   * **Build (15m)**: Draft `docs/03_observability_golden_signals.md` defining strict SLO targets for each signal (e.g., P95 TTFT $< 300\text{ms}$, P99 ITL $< 35\text{ms}$).

@@ -96,7 +96,7 @@ For each token position in the sequence, we must store:
 
 The formula:
 
-$$\text{bytes per token} = 2 \times n_{layers} \times n_{kv\_heads} \times d_{head} \times b_{dtype}$$
+$$\text{bytes per token} = 2 \times n_{layers} \times n_{\text{kv heads}} \times d_{head} \times b_{dtype}$$
 
 Where:
 | Symbol | Meaning |
@@ -312,7 +312,7 @@ Note: Physical blocks are NOT contiguous! And that's perfectly fine.
 
 Each physical block stores KV data for `block_size` tokens (typically 16). Using our Llama-3-8B numbers:
 
-$$\text{block size in bytes} = \text{block\_size} \times \text{bytes\_per\_token} = 16 \times 128 \text{ KB} = 2 \text{ MB}$$
+$$\text{block size in bytes} = \text{block size} \times \text{bytes per token} = 16 \times 128 \text{ KB} = 2 \text{ MB}$$
 
 For a 60 GB KV cache budget:
 
@@ -627,7 +627,7 @@ With longer prompts and more samples, the savings are even more dramatic:
 | 8 samples, 2048-token prompt  | 2.19 GB | 356 MB  | 84%  |
 | 16 samples, 4096-token prompt | 8.75 GB | 712 MB  | 92%  |
 
-The savings grow as $O(N)$ — with $N$ parallel samples sharing a long prompt, you save roughly $(N-1) \times \text{prompt\_kv\_size}$.
+The savings grow as $O(N)$ — with $N$ parallel samples sharing a long prompt, you save roughly $(N-1) \times \text{prompt kv size}$.
 
 ---
 

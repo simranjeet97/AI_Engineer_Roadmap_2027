@@ -15,7 +15,7 @@ This technical memo derives the solutions to both frontiers from first principle
 ## 1. The Core Dilemma: Autoregressive Memory Starvation
 
 Recall from Chapter 01 the fundamental arithmetic intensity equation for the decode phase:
-$$I_{\text{decode}} \approx \frac{2 \times B \times P}{P \times \text{bytes\_per\_weight}} = \frac{2 B}{\text{bytes\_per\_weight}}$$
+$$I_{\text{decode}} \approx \frac{2 \times B \times P}{P \times \text{bytes per weight}} = \frac{2 B}{\text{bytes per weight}}$$
 
 For a single user stream ($B = 1$) on a $70\text{B}$ parameter model in FP16 ($140\text{ GB}$ of weights):
 * To emit **one single token**, the GPU must stream **$140\text{ GB}$ of data across the memory bus**.
@@ -159,7 +159,7 @@ $$\text{Effective Throughput} = \frac{1000}{16.5} \approx \mathbf{60.6 \text{ to
 As foundation models support context windows up to $128\text{K}$, $1\text{M}$, and $10\text{M}$ tokens, serving infrastructure encounters an insurmountable physical barrier: **KV Cache Memory Saturation**.
 
 Recall the memory formula for a single request's KV cache:
-$$\text{KV Bytes per Token} = 2 \times n_{\text{layers}} \times n_{\text{kv\_heads}} \times d_{\text{head}} \times \text{bytes\_per\_elem}$$
+$$\text{KV Bytes per Token} = 2 \times n_{\text{layers}} \times n_{\text{kv heads}} \times d_{\text{head}} \times \text{bytes per elem}$$
 
 For **Llama-3-70B (GQA: 80 layers, 8 KV heads, head dim 128, FP16)**:
 $$\text{KV Bytes per Token} = 2 \times 80 \times 8 \times 128 \times 2 = \mathbf{327,680 \text{ Bytes}} \approx \mathbf{320 \text{ KB / token}}$$
@@ -246,7 +246,7 @@ StreamingLLM KV Cache Layout:
 $$\text{Cached Tokens} = [0, 1, 2, 3] \cup [t - W + 1, \dots, t]$$
 
 Total memory consumption is strictly constant:
-$$\text{Memory} = (4 + W) \times \text{bytes\_per\_token} = \mathbf{O(1) \text{ Constant Space!}}$$
+$$\text{Memory} = (4 + W) \times \text{bytes per token} = \mathbf{O(1) \text{ Constant Space!}}$$
 
 ### Results:
 * With just **4 sink tokens** pinned in VRAM, Llama models can stream text for **over 4 million tokens** continuously without a single point of perplexity divergence!
