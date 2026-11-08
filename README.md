@@ -398,6 +398,9 @@ RADIX TREE PREFIX CACHING HIERARCHY:
 
 ### Week 6: Quantization Tradeoffs: Kernels, Numerical Formats & Accuracy Frontiers
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_06_quantization_tradeoffs_and_marlin.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_06_quantization_tradeoffs_and_marlin.ipynb`](notebooks/week_06_quantization_tradeoffs_and_marlin.ipynb)
+
 > **Objective**: Master the engineering tradeoffs of quantization. Move beyond FP16/BF16 into FP8 (E4M3, E5M2), INT4 (AWQ vs GPTQ vs SmoothQuant), and high-performance fused kernels like Marlin. Measure the exact impact on memory footprint, decode throughput, and task accuracy.
 
 ```
