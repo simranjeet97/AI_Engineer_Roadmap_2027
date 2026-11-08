@@ -455,6 +455,9 @@ RADIX TREE PREFIX CACHING HIERARCHY:
 
 ### Week 7: KV Cache Eviction, Compression & Speculative Decoding
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_07_kv_cache_eviction_and_speculative_decoding.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_07_kv_cache_eviction_and_speculative_decoding.ipynb`](notebooks/week_07_kv_cache_eviction_and_speculative_decoding.ipynb)
+
 > **Objective**: Handle long contexts without running out of HBM. Implement KV cache eviction algorithms (StreamingLLM, H2O). Master speculative decoding, understand draft model verification, and empirically determine the exact threshold where speculative decoding stops helping.
 
 ```
