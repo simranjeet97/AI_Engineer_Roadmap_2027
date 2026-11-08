@@ -664,6 +664,9 @@ Scales up ONLY when physical demand or queue wait times demand more compute.
 
 ### Week 10: Model Routing, Token Budgeting & The Public Capstone Benchmark
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_10_model_routing_token_budgeting_and_capstone.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_10_model_routing_token_budgeting_and_capstone.ipynb`](notebooks/week_10_model_routing_token_budgeting_and_capstone.ipynb)
+
 > **Objective**: Complete your living artifact `Apex-Infer`. Implement a production model router (cost, latency, and quality tiers) and per-request token budgeting. Run the final public benchmark suite and publish your reproducible findings and code to GitHub.
 
 ```
