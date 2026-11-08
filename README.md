@@ -603,6 +603,9 @@ Step 3: Modified Rejection Sampling accepts tokens up to first mismatch:
 
 ### Week 9: Kubernetes Orchestration, Queue-Based Autoscaling & Unit Economics
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_09_kubernetes_keda_and_unit_economics.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_09_kubernetes_keda_and_unit_economics.ipynb`](notebooks/week_09_kubernetes_keda_and_unit_economics.ipynb)
+
 > **Objective**: Productionize your AI workloads on Kubernetes. Understand why default CPU/GPU utilization autoscaling fails catastrophically for LLMs. Configure KEDA to autoscale on queue depth and KV cache saturation. Formulate unit economics down to the cost per million tokens.
 
 ```
