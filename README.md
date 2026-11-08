@@ -291,6 +291,9 @@ Peak Compute --+------------------------------------------/
 
 ### Week 4: Advanced Batching Mechanics & Tail Latency Under Load (1000+ Concurrency)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_04_batching_and_1000_concurrency_crucible.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_04_batching_and_1000_concurrency_crucible.ipynb`](notebooks/week_04_batching_and_1000_concurrency_crucible.ipynb)
+
 > **Objective**: Understand continuous batching and chunked prefill mechanics. Master load testing with 1000+ concurrent connections. Understand why average latency is meaningless and how queue saturation triggers tail-latency (P95/P99) collapse.
 
 ```
