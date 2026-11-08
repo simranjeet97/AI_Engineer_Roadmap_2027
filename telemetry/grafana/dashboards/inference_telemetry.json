@@ -1,0 +1,80 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "title": "Golden Signal: Latency Distributions (TTFT & ITL)",
+      "type": "row"
+    },
+    {
+      "title": "Time to First Token (TTFT) Quantiles",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 1 },
+      "id": 1,
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(vllm:time_to_first_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P50 TTFT (ms)" },
+        { "expr": "histogram_quantile(0.90, sum(rate(vllm:time_to_first_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P90 TTFT (ms)" },
+        { "expr": "histogram_quantile(0.99, sum(rate(vllm:time_to_first_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P99 TTFT (ms)" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms" } }
+    },
+    {
+      "title": "Inter-Token Latency (ITL / TPOT) Quantiles",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 1 },
+      "id": 2,
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(vllm:time_per_output_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P50 ITL (ms)" },
+        { "expr": "histogram_quantile(0.90, sum(rate(vllm:time_per_output_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P90 ITL (ms)" },
+        { "expr": "histogram_quantile(0.99, sum(rate(vllm:time_per_output_token_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P99 ITL (ms)" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms" } }
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 9 },
+      "id": 101,
+      "title": "Golden Signal: Traffic & Saturation",
+      "type": "row"
+    },
+    {
+      "title": "Engine Throughput (Tokens & Requests)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 10 },
+      "id": 3,
+      "targets": [
+        { "expr": "sum(rate(vllm:prompt_tokens_total[1m]))", "legendFormat": "Prefill Tok/s" },
+        { "expr": "sum(rate(vllm:generation_tokens_total[1m]))", "legendFormat": "Generation Tok/s" },
+        { "expr": "sum(rate(vllm:request_success_total[1m]))", "legendFormat": "Req/s" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short" } }
+    },
+    {
+      "title": "Queue Depth & GPU KV Cache Saturation",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 10 },
+      "id": 4,
+      "targets": [
+        { "expr": "vllm:gpu_cache_usage_factor * 100", "legendFormat": "KV Cache Usage (%)" },
+        { "expr": "vllm:num_requests_waiting", "legendFormat": "Waiting Queue (Requests)" },
+        { "expr": "vllm:num_requests_running", "legendFormat": "Running Batch (Requests)" },
+        { "expr": "vllm:gpu_prefix_cache_hit_rate * 100", "legendFormat": "Prefix Cache Hit Rate (%)" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent" } }
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["vllm", "sglang", "inference", "telemetry"],
+  "time": { "from": "now-15m", "to": "now" },
+  "timezone": "utc",
+  "title": "Apex-Infer Staff Inference Telemetry",
+  "uid": "apex-infer-v1"
+}

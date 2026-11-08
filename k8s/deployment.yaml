@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apex-infer-vllm
+  namespace: inference
+  labels:
+    app: apex-infer-vllm
+    tier: inference-engine
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apex-infer-vllm
+  template:
+    metadata:
+      labels:
+        app: apex-infer-vllm
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: vllm-engine
+        image: vllm/vllm-openai:v0.6.3.post1
+        args:
+        - "--model"
+        - "meta-llama/Meta-Llama-3-70B-Instruct"
+        - "--tensor-parallel-size"
+        - "8"
+        - "--gpu-memory-utilization"
+        - "0.92"
+        - "--max-num-batched-tokens"
+        - "2048"
+        - "--enable-chunked-prefill"
+        - "--enable-prefix-caching"
+        - "--port"
+        - "8000"
+        ports:
+        - name: http
+          containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 8
+            memory: 256Gi
+            cpu: "64"
+          requests:
+            nvidia.com/gpu: 8
+            memory: 256Gi
+            cpu: "64"
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 90
+          periodSeconds: 15
+          timeoutSeconds: 5
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 32Gi
+      nodeSelector:
+        cloud.google.com/gke-accelerator: nvidia-h100-80gb
