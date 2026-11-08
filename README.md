@@ -345,6 +345,9 @@ Step N+2: [Req 1: Finished][Req 2: Token 14][Req 3: Token 1        ] <-- Slot im
 
 ### Week 5: Prefix Caching, Multi-Turn Workloads & Radix Trees
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/simranjeet97/AI_Engineer_Roadmap_2027/blob/main/notebooks/week_05_prefix_caching_and_radix_trees.ipynb)
+*Interactive Colab Notebook*: [`notebooks/week_05_prefix_caching_and_radix_trees.ipynb`](notebooks/week_05_prefix_caching_and_radix_trees.ipynb)
+
 > **Objective**: Turn on Automatic Prefix Caching (APC), dissect radix tree cache lookups, and identify the exact enterprise workloads where prefix caching provides $3\times - 10\times$ TTFT improvements versus workloads where it provides zero benefit or triggers cache thrashing.
 
 ```
